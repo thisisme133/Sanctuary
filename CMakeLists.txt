@@ -28,7 +28,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(
         /W4 /permissive-
-        /arch:AVX2
+        /utf-8  # Unicode support for fmt
         /GR-  # Disable RTTI
     )
     if(CMAKE_BUILD_TYPE STREQUAL "Release")

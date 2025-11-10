@@ -15,7 +15,7 @@ UdpConnection::UdpConnection(
     connect_code = manager->random();
     connection_create_time_ = manager->cached_clock();
 
-    multi_buffer_data_.resize(manager->params.max_raw_packet_size);
+    multi_buffer_data_.resize(manager->params.maxRawPacketSize);
 
     // Initialize encryption buffers
     for (auto& buf : temp_decrypt_buffer_) {
@@ -41,10 +41,10 @@ UdpConnection::UdpConnection(
     last_receive_time_ = manager->cached_clock();
 
     connection_config_.encrypt_code = manager->random();
-    connection_config_.crc_bytes = manager->params.crc_bytes;
-    connection_config_.max_raw_packet_size = manager->params.max_raw_packet_size;
+    connection_config_.crc_bytes = manager->params.crcBytes;
+    connection_config_.max_raw_packet_size = manager->params.maxRawPacketSize;
 
-    multi_buffer_data_.resize(manager->params.max_raw_packet_size);
+    multi_buffer_data_.resize(manager->params.maxRawPacketSize);
 
     for (auto& buf : temp_decrypt_buffer_) {
         buf.resize(2048);

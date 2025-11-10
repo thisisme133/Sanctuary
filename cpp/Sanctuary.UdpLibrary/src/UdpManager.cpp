@@ -27,7 +27,7 @@ std::shared_ptr<UdpConnection> UdpManager::establish_connection(
 
     std::lock_guard lock(give_time_guard_);
 
-    if (connection_list_.size() >= static_cast<size_t>(params.max_connections)) {
+    if (connection_list_.size() >= static_cast<size_t>(params.maxConnections)) {
         return nullptr;
     }
 
@@ -128,8 +128,8 @@ std::shared_ptr<LogicalPacket> UdpManager::create_packet(
 
     auto total_size = data1.size() + data2.size();
 
-    if (params.pooled_packet_max > 0 && total_size <= static_cast<size_t>(params.pooled_packet_size)) {
-        auto packet = std::make_shared<PooledLogicalPacket>(params.pooled_packet_size);
+    if (params.pooledPacketMax > 0 && total_size <= static_cast<size_t>(params.pooledPacketSize)) {
+        auto packet = std::make_shared<PooledLogicalPacket>(params.pooledPacketSize);
         packet->set_data(data1, data2);
         return packet;
     }
