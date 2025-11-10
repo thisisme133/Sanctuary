@@ -33,7 +33,7 @@ int ZLib::compress(
     }
 
     z_stream stream{};
-    stream.next_in = reinterpret_cast<const Bytef*>(input.data());
+    stream.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef*>(input.data()));
     stream.avail_in = static_cast<uInt>(input.size());
     stream.next_out = reinterpret_cast<Bytef*>(output.data() + outputOffset);
     stream.avail_out = static_cast<uInt>(output.size() - outputOffset);
@@ -70,7 +70,7 @@ int ZLib::decompress(
     }
 
     z_stream stream{};
-    stream.next_in = reinterpret_cast<const Bytef*>(input.data());
+    stream.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef*>(input.data()));
     stream.avail_in = static_cast<uInt>(input.size());
     stream.next_out = reinterpret_cast<Bytef*>(output.data());
     stream.avail_out = static_cast<uInt>(output.size());
