@@ -282,3 +282,6 @@ void UdpConnection::callback_corrupt_packet(std::span<const uint8_t> data, UdpCo
 }
 
 } // namespace Sanctuary::UdpLibrary
+
+// Destructor must be defined in .cpp to allow unique_ptr of incomplete type (UdpReliableChannel)
+UdpConnection::~UdpConnection() = default;

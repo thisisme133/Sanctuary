@@ -3,6 +3,7 @@
 #include "Enums.h"
 #include "UdpParams.h"
 #include "LogicalPacket.h"
+#include "UdpReliableChannel.h"
 #include <cstdint>
 #include <memory>
 #include <mutex>
@@ -16,7 +17,7 @@ namespace Sanctuary::UdpLibrary {
 using UdpClockStamp = int64_t;
 
 class UdpManager;
-class UdpReliableChannel;
+
 
 struct UdpConnectionStatistics {
     uint64_t iterations = 0;
@@ -52,7 +53,7 @@ public:
     // Server-side constructor
     UdpConnection(UdpManager* manager, const boost::asio::ip::udp::endpoint& endpoint, int connect_code);
 
-    virtual ~UdpConnection() = default;
+    virtual ~UdpConnection();
 
     // Send methods
     bool send(UdpChannel channel, std::span<const uint8_t> data);
