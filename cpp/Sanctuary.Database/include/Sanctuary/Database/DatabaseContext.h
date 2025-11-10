@@ -21,7 +21,7 @@ enum class DatabaseError {
     ConnectionFailed,
     QueryFailed,
     NotFound,
-    Constraint Violation
+    ConstraintViolation
 };
 
 class DatabaseContext {
