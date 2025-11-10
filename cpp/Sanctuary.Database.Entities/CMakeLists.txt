@@ -1,0 +1,7 @@
+project(Sanctuary.Database.Entities)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
+add_library(Sanctuary.Database.Entities STATIC ${SOURCES} ${HEADERS})
+target_include_directories(Sanctuary.Database.Entities PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(Sanctuary.Database.Entities PUBLIC Sanctuary.Core)
+set_target_properties(Sanctuary.Database.Entities PROPERTIES CXX_STANDARD 23 CXX_STANDARD_REQUIRED ON)

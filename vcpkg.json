@@ -1,0 +1,22 @@
+{
+  "name": "sanctuary",
+  "version": "1.0.0",
+  "description": "Sanctuary Free Realms Server Emulator - C++23",
+  "dependencies": [
+    "openssl",
+    "zlib",
+    "nlohmann-json",
+    "sqlite3",
+    "libmariadb",
+    "boost-system",
+    "boost-thread",
+    "boost-asio",
+    "boost-beast",
+    "spdlog",
+    "fmt",
+    "cxxopts",
+    "gtest",
+    "benchmark"
+  ],
+  "builtin-baseline": "latest"
+}

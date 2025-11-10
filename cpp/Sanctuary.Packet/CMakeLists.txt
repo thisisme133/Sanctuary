@@ -1,0 +1,7 @@
+project(Sanctuary.Packet)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
+add_library(Sanctuary.Packet STATIC ${SOURCES} ${HEADERS})
+target_include_directories(Sanctuary.Packet PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(Sanctuary.Packet PUBLIC Sanctuary.Core)
+set_target_properties(Sanctuary.Packet PROPERTIES CXX_STANDARD 23 CXX_STANDARD_REQUIRED ON)

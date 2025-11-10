@@ -1,0 +1,7 @@
+project(Sanctuary.Game)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
+add_library(Sanctuary.Game STATIC ${SOURCES} ${HEADERS})
+target_include_directories(Sanctuary.Game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(Sanctuary.Game PUBLIC Sanctuary.Core)
+set_target_properties(Sanctuary.Game PROPERTIES CXX_STANDARD 23 CXX_STANDARD_REQUIRED ON)
