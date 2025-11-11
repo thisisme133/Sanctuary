@@ -54,13 +54,13 @@ void LoginServer::remove_gateway_connection(uint64_t gateway_id) {
 void LoginServer::setup_udp_managers() {
     UdpLibrary::UdpParams client_params;
     client_params.port = client_port_;
-    client_params.max_connections = 1000;
-    client_params.crc_bytes = 2;
+    client_params.maxConnections = 1000;
+    client_params.crcBytes = 2;
 
     UdpLibrary::UdpParams gateway_params;
     gateway_params.port = gateway_port_;
-    gateway_params.max_connections = 10;
-    gateway_params.crc_bytes = 2;
+    gateway_params.maxConnections = 10;
+    gateway_params.crcBytes = 2;
 
     // client_udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(client_params, io_context_);
     // gateway_udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(gateway_params, io_context_);
