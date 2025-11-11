@@ -3,13 +3,18 @@
 #include <thread>
 #include <csignal>
 #include <atomic>
+#ifndef NO_CXXOPTS_LIB
 #include <cxxopts.hpp>
+#endif
+#ifndef NO_SPDLOG_LIB
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
+#endif
+#ifndef NO_JSON_LIB
 #include <nlohmann/json.hpp>
+#endif
 #include <boost/asio.hpp>
-#include <Sanctuary/Core/Config.h>
 #include <Sanctuary/Gateway/GatewayServer.h>
 
 using namespace Sanctuary;
@@ -60,14 +65,6 @@ int main(int argc, char* argv[]) {
         }
 
         spdlog::info("Sanctuary Gateway Server starting...");
-
-        // Load configuration
-        Core::Config config;
-        if (result.count("config")) {
-            auto config_path = result["config"].as<std::string>();
-            spdlog::info("Loading configuration from: {}", config_path);
-            // config.load(config_path); // TODO: Implement
-        }
 
         // Setup signal handlers
         std::signal(SIGINT, signal_handler);

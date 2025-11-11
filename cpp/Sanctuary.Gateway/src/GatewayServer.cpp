@@ -36,8 +36,8 @@ void GatewayServer::remove_client_connection(uint64_t connection_id) {
 void GatewayServer::setup_udp_manager() {
     UdpLibrary::UdpParams params;
     params.port = port_;
-    params.max_connections = 1000;
-    params.crc_bytes = 2;
+    params.maxConnections = 1000;
+    params.crcBytes = 2;
 
     // udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(params, io_context_);
 }
