@@ -23,6 +23,12 @@ void GatewayServer::stop() {
     spdlog::info("GatewayServer stopped");
 }
 
+void GatewayServer::give_udp_time() {
+    if (udp_manager_) {
+        udp_manager_->give_time();
+    }
+}
+
 void GatewayServer::add_client_connection(std::shared_ptr<GatewayConnection> connection) {
     client_connections_[connection->get_connection_id()] = connection;
     spdlog::info("Client connected: {}", connection->get_connection_id());
@@ -39,7 +45,7 @@ void GatewayServer::setup_udp_manager() {
     params.maxConnections = 1000;
     params.crcBytes = 2;
 
-    // udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(params, io_context_);
+    udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(params, io_context_);
 }
 
 } // namespace Sanctuary::Gateway

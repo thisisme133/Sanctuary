@@ -25,6 +25,7 @@ public:
 
     void start();
     void stop();
+    void give_udp_time();
 
     // Connection management
     void add_client_connection(std::shared_ptr<LoginConnection> connection);

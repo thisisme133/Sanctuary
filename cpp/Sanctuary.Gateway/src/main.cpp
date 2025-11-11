@@ -81,8 +81,22 @@ int main(int argc, char* argv[]) {
         spdlog::info("Initializing Gateway Server on port {}", gateway_port);
         spdlog::info("Connecting to Login Server at {}:{}", login_host, login_port);
 
-        // TODO: Create and configure GatewayServer
-        // auto gateway = std::make_unique<Gateway::GatewayServer>(io_context, gateway_port);
+        // Create and configure GatewayServer
+        auto gateway = std::make_unique<Gateway::GatewayServer>(io_context, gateway_port);
+        gateway->start();
+
+        // Setup UDP give_time timer (needed for connection state management)
+        boost::asio::steady_timer udp_timer(io_context);
+        std::function<void(const boost::system::error_code&)> udp_tick;
+        udp_tick = [&gateway, &udp_timer, &udp_tick](const boost::system::error_code& ec) {
+            if (!ec && gateway) {
+                gateway->give_udp_time();
+                udp_timer.expires_after(std::chrono::milliseconds(50));
+                udp_timer.async_wait(udp_tick);
+            }
+        };
+        udp_timer.expires_after(std::chrono::milliseconds(50));
+        udp_timer.async_wait(udp_tick);
 
         // Run io_context in worker threads
         auto thread_count = std::max(2u, std::thread::hardware_concurrency());

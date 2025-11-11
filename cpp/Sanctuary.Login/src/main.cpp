@@ -88,8 +88,22 @@ int main(int argc, char* argv[]) {
 
         spdlog::info("Connecting to database: {}", db_conn);
 
-        // TODO: Create and configure LoginServer
-        // auto login = std::make_unique<Login::LoginServer>(io_context, client_port, gateway_port, db_conn);
+        // Create and configure LoginServer
+        auto login = std::make_unique<Login::LoginServer>(io_context, client_port, gateway_port, db_conn);
+        login->start();
+
+        // Setup UDP give_time timer (needed for connection state management)
+        boost::asio::steady_timer udp_timer(io_context);
+        std::function<void(const boost::system::error_code&)> udp_tick;
+        udp_tick = [&login, &udp_timer, &udp_tick](const boost::system::error_code& ec) {
+            if (!ec && login) {
+                login->give_udp_time();
+                udp_timer.expires_after(std::chrono::milliseconds(50));
+                udp_timer.async_wait(udp_tick);
+            }
+        };
+        udp_timer.expires_after(std::chrono::milliseconds(50));
+        udp_timer.async_wait(udp_tick);
 
         // Run io_context in worker threads
         auto thread_count = std::max(2u, std::thread::hardware_concurrency());

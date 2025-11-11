@@ -33,6 +33,15 @@ void LoginServer::stop() {
     spdlog::info("LoginServer stopped");
 }
 
+void LoginServer::give_udp_time() {
+    if (client_udp_manager_) {
+        client_udp_manager_->give_time();
+    }
+    if (gateway_udp_manager_) {
+        gateway_udp_manager_->give_time();
+    }
+}
+
 void LoginServer::add_client_connection(std::shared_ptr<LoginConnection> connection) {
     client_connections_[connection->get_connection_id()] = connection;
     spdlog::info("Client connected: {}", connection->get_connection_id());
@@ -62,8 +71,8 @@ void LoginServer::setup_udp_managers() {
     gateway_params.maxConnections = 10;
     gateway_params.crcBytes = 2;
 
-    // client_udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(client_params, io_context_);
-    // gateway_udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(gateway_params, io_context_);
+    client_udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(client_params, io_context_);
+    gateway_udp_manager_ = std::make_unique<UdpLibrary::UdpManager>(gateway_params, io_context_);
 }
 
 void LoginServer::initialize_database(const std::string& database_path) {
