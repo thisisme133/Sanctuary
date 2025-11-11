@@ -9,5 +9,6 @@ target_link_libraries(Sanctuary.Login
         Sanctuary.UdpLibrary
         Sanctuary.Packet
         Sanctuary.Database
+        fmt::fmt
 )
 set_target_properties(Sanctuary.Login PROPERTIES CXX_STANDARD 23 CXX_STANDARD_REQUIRED ON)
